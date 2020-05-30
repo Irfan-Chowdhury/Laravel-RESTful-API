@@ -19,50 +19,47 @@ class ClassNameController extends Controller
     }
 
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'class_name' =>'required|unique:class_names|max:25'
+        ]);
+
+        $class = New ClassName();
+        $class->class_name = $request->class_name;
+        $class->save();
+
+        // $data = array();
+        // $data['class_name'] = $request->class_name;
+        // DB::table('classes')->insert($data);
+        return response('Successfully done');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
-        //
+        $class = ClassName::find($id);
+        return response()->json($class);
     }
 
     
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $class = ClassName::find($id);
+        $class->class_name = $request->class_name;
+        $class->update();
+        
+        return response('Updated Successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy($id)
     {
-        //
+        // DB::table('classes')->where('id',$id)->delete();
+        $class = ClassName::find($id);
+        $class->delete();
+
+        return response('Class Deleted');
     }
 }
