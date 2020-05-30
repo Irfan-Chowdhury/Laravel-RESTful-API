@@ -29,5 +29,9 @@ Route::apiResource('/class','Api\ClassNameController'); //or,
 // =========== Subject ============
 Route::apiResource('/subject','Api\SubjectController');
 
+// =========== Student ============
+Route::apiResource('/student','Api\StudentController');
+
+
 
 
